@@ -1,4 +1,4 @@
-<h3>CUESTIONARIOS SABIO GRAN CAPITAN</h1>
+
 <?php 
-	mostrarBD();
+	require_once "resources/panelAdmin.php";
 ?>

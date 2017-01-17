@@ -1,5 +1,5 @@
 <?php
-
+	session_start();
 	function conexionBD(){
 		$user= "root";
 		$pass= "root";
@@ -32,5 +32,29 @@
         return $filas;
 	}
 	
+	function addPreguntas(){
 
+		$conexion =conexionBD();
+
+		$sqlInsertar ="insert into preguntas(pregunta, objeto, tipoObjeto, categoria, nivel) values(:pregunta, :objeto, :tipoObjeto, categoria, nivel)";
+		
+		//Preparo la consulta para evitar el SQLInyection con el metodo prepare
+    	$statement = $conexion->prepare($sql);
+
+    	//Bindeamos los parametros para sustituir los parametros con : por su valor
+		$statement->bindParam(":pregunta", $pregunta);
+		$statement->bindParam(":objeto", $objeto);
+		$statement->bindParam(":tipoObjeto", $tipoObjeto);
+		$statement->bindParam(":categoria", $categoria);
+		$statement->bindParam(":nivel", $nivel);
+
+		if (!$statement) {
+			return "Error al registrar los datos";
+		}else{
+			$statement->execute();
+			return "Se han registrado correctamente";
+		}
+	}
+
+		
 ?>
